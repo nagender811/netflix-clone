@@ -35,7 +35,7 @@ const TitleCards = ({ title, category }) => {
 
   return (
     <div className="mt-12 mb-7 ">
-      <h2 className="mb-2">{title ? title : "Popular on Netflix"}</h2>
+      <h2 className="mb-2 font-bold">{title ? title : "Popular on Netflix"}</h2>
       <div
         className="flex flex-row overflow-x-auto space-x-4 scrollbar-hide"
         ref={cardsRef}

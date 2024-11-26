@@ -4,6 +4,7 @@ import search_icon from "../assets/search_icon.svg";
 import bell_icon from "../assets/bell_icon.svg";
 import profile_img from "../assets/profile_img.png";
 import caret_icon from "../assets/caret_icon.svg";
+import { logout } from "../firebase";
 
 const Navbar = () => {
 
@@ -40,7 +41,7 @@ const Navbar = () => {
           <img className="rounded" src={profile_img} alt="profile" />
           <img className="rounded" src={caret_icon} alt="" />
           <div className="absolute top-full right-0 w-max bg-[#191919] py-4 px-5 rounded underline z-10 hidden group-hover:block">
-            <p className="text-[13px] cursor-pointer">Sign Out of Netflix</p>
+            <p onClick={()=> {logout()}} className="text-[13px] cursor-pointer">Sign Out of Netflix</p>
           </div>
         </div>
       </div>

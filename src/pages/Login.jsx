@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
+import { login, signup } from "../firebase";
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const user_auth = async (event) => {
+    event.preventDefault();
+    if (signState === "Sign In") {
+      await login(email, password);
+    } else {
+      await signup(name, email, password);
+    }
+  };
 
   return (
     <div className="h-screen bg-[linear-gradient(to_right,#0000007e,#0000007e),url('/background_banner.jpg')]">
@@ -12,6 +25,10 @@ const Login = () => {
         <form>
           {signState === "Sign Up" ? (
             <input
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               type="text"
               placeholder="Your Name"
               className="w-full h-12 bg-[#333] text-white my-3 mx-0 border-0 outline-0 rounded text-base font-medium pl-5"
@@ -21,16 +38,28 @@ const Login = () => {
           )}
 
           <input
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             type="email"
             placeholder="Email"
             className="w-full h-12 bg-[#333] text-white my-3 mx-0 border-0 outline-0 rounded text-base font-medium pl-5"
           />
           <input
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             type="password"
             placeholder="Password"
             className="w-full h-12 bg-[#333] text-white my-3 mx-0 border-0 outline-0 rounded text-base font-medium pl-5"
           />
-          <button className="w-full border-0 outline-0 p-4 bg-[#e50914] text-white rounded text-base mt-5  cursor-pointer">
+          <button
+            className="w-full border-0 outline-0 p-4 bg-[#e50914] text-white rounded text-base mt-5  cursor-pointer"
+            onClick={user_auth}
+            type="submit"
+          >
             {signState}
           </button>
           <div className="flex items-center justify-between text-[#b3b3b3] text-xs mt-4">

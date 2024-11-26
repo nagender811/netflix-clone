@@ -37,7 +37,7 @@ const Player = () => {
       <img
         className="absolute top-3 left-3 cursor-pointer w-12"
         onClick={() => {
-          navigate(-2);          
+          navigate(-2);
         }}
         src={back_arrow_icon}
         alt=""
@@ -52,9 +52,11 @@ const Player = () => {
         allowFullScreen
       ></iframe>
       <div className="flex items-center justify-between w-[90%]">
-        <p>{apiData.published_at.slice(0, 10)}</p>
-        <p>{apiData.name}</p>
-        <p>{apiData.type}</p>
+        <p className="text-xs sm:text-sm">
+          {apiData.published_at.slice(0, 10)}
+        </p>
+        <p className="text-xs sm:text-sm">{apiData.name}</p>
+        <p className="text-xs sm:text-sm">{apiData.type}</p>
       </div>
     </div>
   );

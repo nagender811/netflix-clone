@@ -1,26 +1,34 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { login, signup } from "../firebase";
+import netflix_spinner from "../assets/netflix_spinner.gif";
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const user_auth = async (event) => {
     event.preventDefault();
+    setLoading(true);
     if (signState === "Sign In") {
       await login(email, password);
     } else {
       await signup(name, email, password);
     }
+    setLoading(false);
   };
 
-  return (
+  return loading ? (
+    <div className="w-full h-[screen] flex items-center justify-center">
+      <img className="w-16" src={netflix_spinner} alt="" />
+    </div>
+  ) : (
     <div className="h-screen bg-[linear-gradient(to_right,#0000007e,#0000007e),url('/background_banner.jpg')]">
-      <img className="w-[150px]" src={logo} alt="" />
-      <div className="w-full max-w-[450px] bg-[rgba(0,0,0,0.75)] rounded p-14 m-auto">
+      <img className="w-[150px] p-4" src={logo} alt="" />
+      <div className="w-[80%] lg:w-full max-w-[450px] bg-[rgba(0,0,0,0.75)] rounded mt-14 md:mt-0 p-10 m-auto">
         <h1 className="text-3xl font-medium mb-5">{signState}</h1>
         <form>
           {signState === "Sign Up" ? (
@@ -90,8 +98,8 @@ const Login = () => {
               </span>
             </p>
           ) : (
-            <p>
-              Already have account?{" "}
+            <p className="flex flex-col items-center sm:inline-block">
+              Already have an account?{" "}
               <span
                 className="ml-1.5 text-[#fff] font-medium cursor-pointer"
                 onClick={() => {

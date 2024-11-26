@@ -3,8 +3,7 @@ import cards_data from "../assets/cards/Cards_data";
 import { Link } from "react-router-dom";
 
 const TitleCards = ({ title, category }) => {
-
-  const [apiData, setApiData] = useState([])
+  const [apiData, setApiData] = useState([]);
   const cardsRef = useRef();
 
   const options = {
@@ -23,32 +22,40 @@ const TitleCards = ({ title, category }) => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${category?category:"now_playing"}?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/movie/${
+        category ? category : "now_playing"
+      }?language=en-US&page=1`,
       options
     )
       .then((res) => res.json())
-      .then((res) =>setApiData(res.results))
+      .then((res) => setApiData(res.results))
       .catch((err) => console.error(err));
 
     cardsRef.current.addEventListener("wheel", handleWheel);
   }, []);
 
   return (
-    <div className="mt-12 mb-7 ">
-      <h2 className="mb-2 font-bold">{title ? title : "Popular on Netflix"}</h2>
+    <div className="mt-5 md:mt-12 mb:0 md:mb-7 ">
+      <h2 className="mb-2 font-bold text-xl">
+        {title ? title : "Popular on Netflix"}
+      </h2>
       <div
         className="flex flex-row overflow-x-auto space-x-4 scrollbar-hide"
         ref={cardsRef}
       >
         {apiData.map((card, index) => {
           return (
-            <Link to={`/player/${card.id}`} className="flex-shrink-0 w-[200px] relative" key={index}>
+            <Link
+              to={`/player/${card.id}`}
+              className="flex-shrink-0 w-40 sm:w-[200px] relative"
+              key={index}
+            >
               <img
-                className="w-full rounded cursor-pointer"
-                src={`https://image.tmdb.org/t/p/w500`+card.backdrop_path}
+                className="sm:w-full rounded cursor-pointer"
+                src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
                 alt=""
               />
-              <p className="text-center absolute bottom-3 z-10 right-2">
+              <p className="text-xs sm:text-sm text-center absolute bottom-3 z-10 right-2">
                 {card.original_title}
               </p>
             </Link>
